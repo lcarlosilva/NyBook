@@ -23,8 +23,8 @@ class BooksViewModel : ViewModel() {
                         for (result in bookBodyResponse.bookResultsResponse) {
                             val book: Book = Book(
                                 title = result.bookDetailsResponse[0].title,
-                                author = result.bookDetailsResponse[0].author
-//                                description = result.bookDetailsResponse[0].description
+                                author = result.bookDetailsResponse[0].author,
+                                description = result.bookDetailsResponse[0].description
                             )
                             listBooks.add(book)
                         }
@@ -32,6 +32,7 @@ class BooksViewModel : ViewModel() {
                     booksLiveData.value = listBooks
                 }
             }
+
             override fun onFailure(call: Call<BookBodyResponse>, t: Throwable) {
                 throw t.fillInStackTrace()
             }
