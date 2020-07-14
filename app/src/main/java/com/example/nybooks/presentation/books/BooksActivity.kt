@@ -1,23 +1,23 @@
-package com.example.nybooks.presetation.books
+package com.example.nybooks.presentation.books
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nybooks.R
-import com.example.nybooks.presetation.details.BookDetailsActivity
+import com.example.nybooks.presentation.base.BaseActivity
+import com.example.nybooks.presentation.details.BookDetailsActivity
 import kotlinx.android.synthetic.main.activity_books.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 
-class BooksActivity : AppCompatActivity() {
+class BooksActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_books)
 
-        toolbarMain.title = getString(R.string.title_books)
-        setSupportActionBar(toolbarMain)
+        setupToolbar(toolbarMain, R.string.title_books)
 
         val viewModel: BooksViewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
         viewModel.booksLiveData.observe(this, Observer {
@@ -26,12 +26,23 @@ class BooksActivity : AppCompatActivity() {
                     layoutManager = LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false)
                     setHasFixedSize(true)
                     adapter = BooksAdapter(books) {book ->
-                        val intent = BookDetailsActivity.getIntent(this@BooksActivity, book.title,book.description)
+                        val intent = BookDetailsActivity.getIntent(this@BooksActivity, book.title,book.description, book.author)
                         this@BooksActivity.startActivity(intent)
                     }
                 }
             }
         })
+
+        viewModel.viewFlipperLiveData.observe(this, Observer {
+            it?.let {viewFlipper ->
+                vf_book_activity.displayedChild = viewFlipper.first
+
+                viewFlipper.second?.let {errorMessageRedId ->
+                    tv_message_exception.text = getString(errorMessageRedId)
+                }
+            }
+        })
+
         viewModel.getBooks()
     }
 }

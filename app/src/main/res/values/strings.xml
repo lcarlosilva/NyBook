@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">NyBooks</string>
+
+    <!--  Activity Book  -->
     <string name="title_books">Books</string>
+    <string name="books_error_401">Não autorizado!</string>
+    <string name="books_error_400">Erro não tratado. :(</string>
+    <string name="books_error_500">Erro CATASTRÓFICO. :O</string>
+
+    <!--  Activity Book Details  -->
     <string name="lbl_tv_title">Titulo:</string>
     <string name="lbl_tv_description">Decrição:</string>
+    <string name="lbl_tv_author">Author</string>
+    <string name="title_details_books">Detalhes</string>
 </resources>

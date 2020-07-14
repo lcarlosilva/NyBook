@@ -1,6 +1,6 @@
 package com.example.nybooks.data.response
 
-import androidx.lifecycle.GeneratedAdapter
+import com.example.nybooks.data.model.Book
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -12,4 +12,10 @@ data class BookDetailsResponse (
     var author: String,
     @Json(name = "description")
     var description: String
-)
+) {
+    fun getBookModel() = Book(
+        title = this.title,
+        author = this.author,
+        description = this.description
+    )
+}
