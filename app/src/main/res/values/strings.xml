@@ -9,7 +9,12 @@
 
     <!--  Activity Book Details  -->
     <string name="lbl_tv_title">Titulo:</string>
-    <string name="lbl_tv_description">Decrição:</string>
     <string name="lbl_tv_author">Author</string>
+    <string name="lbl_tv_description">Decrição:</string>
     <string name="title_details_books">Detalhes</string>
+
+    <!-- Activity Login -->
+    <string name="user">User</string>
+    <string name="login">Acessar</string>
+    <string name="password">Password</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.example.nybooks.presentation.books
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,8 +29,8 @@ class BooksActivity : BaseActivity() {
                 with(recyclerBooks) {
                     layoutManager = LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false)
                     setHasFixedSize(true)
-                    adapter = BooksAdapter(books) {book ->
-                        val intent = BookDetailsActivity.getIntent(this@BooksActivity, book.title,book.description, book.author)
+                    adapter = BooksAdapter(books) { book ->
+                        val intent = BookDetailsActivity.getIntent(this@BooksActivity, book.title, book.description, book.author)
                         this@BooksActivity.startActivity(intent)
                     }
                 }
@@ -36,15 +38,20 @@ class BooksActivity : BaseActivity() {
         })
 
         viewModel.viewFlipperLiveData.observe(this, Observer {
-            it?.let {viewFlipper ->
+            it?.let { viewFlipper ->
                 vf_book_activity.displayedChild = viewFlipper.first
-
-                viewFlipper.second?.let {errorMessageRedId ->
+                viewFlipper.second?.let { errorMessageRedId ->
                     tv_message_exception.text = getString(errorMessageRedId)
                 }
             }
         })
 
         viewModel.getBooks()
+    }
+
+    companion object {
+        fun getIntent(context: Context): Intent {
+            return Intent(context, BooksActivity::class.java)
+        }
     }
 }
