@@ -1,16 +1,14 @@
 package com.example.nybooks.data.response
 
 import com.example.nybooks.data.model.Book
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class BookDetailsResponse (
-    @Json(name = "title")
+    @SerializedName("title")
     var title: String,
-    @Json(name = "author")
+    @SerializedName("author")
     var author: String,
-    @Json(name = "description")
+    @SerializedName("description")
     var description: String
 ) {
     fun getBookModel() = Book(

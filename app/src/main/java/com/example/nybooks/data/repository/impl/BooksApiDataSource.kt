@@ -1,8 +1,9 @@
-package com.example.nybooks.data.repository
+package com.example.nybooks.data.repository.impl
 
-import com.example.nybooks.data.ApiService
+import com.example.nybooks.data.NYApiService
 import com.example.nybooks.data.BooksResult
 import com.example.nybooks.data.model.Book
+import com.example.nybooks.data.repository.BooksRepository
 import com.example.nybooks.data.response.BookBodyResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -10,7 +11,7 @@ import retrofit2.Response
 
 class BooksApiDataSource : BooksRepository {
     override fun getBooks(booksResultCallBack: (result: BooksResult) -> Unit) {
-        ApiService.service.getBooks().enqueue(object : Callback<BookBodyResponse> {
+        NYApiService.service.getBooks().enqueue(object : Callback<BookBodyResponse> {
             override fun onResponse(call: Call<BookBodyResponse>, response: Response<BookBodyResponse>) {
                 when {
                     response.isSuccessful -> {

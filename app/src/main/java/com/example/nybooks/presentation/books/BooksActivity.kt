@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nybooks.R
-import com.example.nybooks.data.repository.BooksApiDataSource
+import com.example.nybooks.ext.viewModel
 import com.example.nybooks.presentation.base.BaseActivity
 import com.example.nybooks.presentation.details.BookDetailsActivity
 import kotlinx.android.synthetic.main.activity_books.*
@@ -15,15 +15,14 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 
 class BooksActivity : BaseActivity() {
 
+    private val viewModel: BooksViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_books)
 
         setupToolbar(toolbarMain, R.string.title_books)
 
-//        val viewModel: BooksViewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
-        val viewModel: BooksViewModel = BooksViewModel.ViewModelFactory(BooksApiDataSource())
-            .create(BooksViewModel::class.java)
         viewModel.booksLiveData.observe(this, Observer {
             it?.let { books ->
                 with(recyclerBooks) {
